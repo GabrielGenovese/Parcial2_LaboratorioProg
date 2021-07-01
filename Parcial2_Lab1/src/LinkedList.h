@@ -1,4 +1,3 @@
-
 #ifndef __LINKEDLIST
 #define __LINKEDLIST
 struct Node
@@ -14,9 +13,6 @@ struct LinkedList
 }typedef LinkedList;
 #endif
 
-
-
-//Publicas
 LinkedList* ll_newLinkedList(void);
 int ll_len(LinkedList* this);
 Node* test_getNode(LinkedList* this, int nodeIndex);

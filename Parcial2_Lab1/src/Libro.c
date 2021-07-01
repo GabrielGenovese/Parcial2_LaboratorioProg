@@ -145,7 +145,7 @@ eLibro* libro_nuevo()
 }
 
 
-eLibro* libro_nuevoParametros(char* idStr,char* titulo,char* autor,char* precioStr,char idEditorialStr)
+eLibro* libro_nuevoParametros(char* idStr,char* titulo,char* autor,char* precioStr,char* idEditorialStr)
 {
 	eLibro* retorno = NULL;
 	eLibro* nuevoLibro = NULL;
@@ -155,7 +155,7 @@ eLibro* libro_nuevoParametros(char* idStr,char* titulo,char* autor,char* precioS
 
 
 
-	if( idStr != NULL && titulo != NULL && precioStr != NULL && isdigit(idEditorialStr) && autor != NULL)
+	if( idStr != NULL && titulo != NULL && precioStr != NULL && idEditorialStr != NULL  && autor != NULL)
 	{
 		nuevoLibro = libro_nuevo();
 
@@ -163,7 +163,7 @@ eLibro* libro_nuevoParametros(char* idStr,char* titulo,char* autor,char* precioS
 		{
 			id = atoi(idStr);
 			precio = atof(precioStr);
-			idEditorial = atoi(&idEditorialStr);
+			idEditorial = atoi(idEditorialStr);
 
 			libro_setId(nuevoLibro,id);
 			libro_setTitulo(nuevoLibro,titulo);
@@ -211,8 +211,8 @@ void imprimirTutilo()
 
 int descripcionEditorialSegunId(int id, char* descripcion)
 {
-	int retorno = 0;
-	if(id > -1)
+	int retorno = -1;
+	if(id > -1 && descripcion != NULL)
 	{
 		switch(id)
 		{
@@ -267,23 +267,17 @@ int imprimirLibro(eLibro *libro)
 }
 
 
-int ordenPorAutor(void* employee1,void* employee2)
+int ordenPorAutor(void* libro1,void* libro2)
 {
 	int retorno = 0;
 	char nombreEmp1[128];
 	char nombreEmp2[128];
-	eLibro* empl1;
-	eLibro* empl2;
 
-	if(employee1 != NULL && employee2 != NULL )
+	if(libro1 != NULL && libro2 != NULL )
 	{
 
-		empl1 = employee1;
-		empl2 = employee2;
-
-		libro_getAutor(empl1,nombreEmp1);
-		libro_getAutor(empl2,nombreEmp2);
-
+		libro_getAutor(libro1,nombreEmp1);
+		libro_getAutor(libro2,nombreEmp2);
 		retorno = strcmp(nombreEmp1,nombreEmp2);
 	}
 

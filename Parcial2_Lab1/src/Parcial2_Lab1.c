@@ -50,5 +50,7 @@ int main(void) {
 		}
 	}while(opcion != 6);
 
+	ll_deleteLinkedList(Libros);
+
 	return EXIT_SUCCESS;
 }

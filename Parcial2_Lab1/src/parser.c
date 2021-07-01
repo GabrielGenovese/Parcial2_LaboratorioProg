@@ -6,9 +6,9 @@
 #include "Libro.h"
 
 
-char IdEditorialSegunDescripcion(char * descripcion)
+int IdEditorialSegunDescripcion(char *descripcion,char* idEditorialStr)
 {
-	char retorno;
+	int retorno = -1;
 	char editoriales [6][30] = {
 			{"PLANETA"},
 			{"SIGLO XXI EDITORES"},
@@ -29,28 +29,23 @@ char IdEditorialSegunDescripcion(char * descripcion)
 			if(!strcmp(auxiliar,*(editoriales+i)))
 			{
 				ID = i+1;
+				retorno = 0;
 				break;
 			}
 		}
-		itoa(ID,&retorno,10);
+		itoa(ID,idEditorialStr,10);
 	}
 	return retorno;
 }
 
-/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
+
 int parser_libroDelTexto(FILE* pFile , LinkedList* pArrayListEmployee)
 {
 	int retorno = -1;
 	char buffer[5][128];
 	int cantidadDatosLeidos;
 	eLibro* LibroLeido;
-	char idEditorial;
+	char idEditorial[128];
 
 	if(pFile != NULL && pArrayListEmployee != NULL)
 	{
@@ -62,7 +57,7 @@ int parser_libroDelTexto(FILE* pFile , LinkedList* pArrayListEmployee)
 
 			if(cantidadDatosLeidos == 5)
 			{
-				idEditorial = IdEditorialSegunDescripcion(buffer[4]);
+				IdEditorialSegunDescripcion(buffer[4],idEditorial);
 				LibroLeido = libro_nuevoParametros(buffer[0],buffer[1],buffer[2],buffer[3],idEditorial);
 				ll_add(pArrayListEmployee,LibroLeido);
 				retorno = 0;
